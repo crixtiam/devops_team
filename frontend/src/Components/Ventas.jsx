@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const Ventas = ({ ventas }) => {
   useEffect(() => {
@@ -9,23 +9,62 @@ const Ventas = ({ ventas }) => {
     return "$" + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
   }
 
+  const [valor, setValor] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [fechaInicial, setFechaInicial] = useState("");
+  const [fechaPago, setFechaPago] = useState("");
+  const [responsable, setResponsable] = useState("");
+
+  const addNuevaVenta = async (event) => {
+    event.preventDefault();
+    await fetch("http://localhost:5000/ventas", {
+      method: "POST",
+      body: JSON.stringify({
+        valor,
+        descripcion,
+        fechaInicial,
+        fechaPago,
+        responsable,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    window.location.reload(false);
+  };
+
+  const deleteVenta = async () => {
+    await fetch("http://localhost:5000/ventas/14", { method: "DELETE" });
+  };
+
   return (
     <div className="container mt-4">
       <h3>Módulo Administrador de Ventas</h3>
       <div className="d-flex justify-content-center">
-        <form method="post" className="mt-4">
+        <form method="post" className="mt-4" onSubmit={addNuevaVenta}>
           <label htmlFor="ID">ID: </label>
           <input type="number" className="shortInput" />
           <label htmlFor="valor">Valor: </label>
-          <input type="text" className="shortInput" />
+          <input
+            type="text"
+            className="shortInput"
+            value={valor}
+            onChange={(e) => setValor(parseInt(e.target.value))}
+          />
           <label htmlFor="descripcion">Descripción: </label>
-          <input type="text" />
+          <input
+            type="text"
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+          />
           <label htmlFor="fechaInicial">Fecha Inicial: </label>
           <input
             type="date"
             name="fechaInicial"
             id="fechaInicial"
             style={{ width: "145px" }}
+            value={fechaInicial}
+            onChange={(e) => setFechaInicial(e.target.value)}
           />
           <label htmlFor="fechaPago">Fecha Pago: </label>
           <input
@@ -33,9 +72,17 @@ const Ventas = ({ ventas }) => {
             name="fechaPago"
             id="fechaPago"
             style={{ width: "145px" }}
+            value={fechaPago}
+            onChange={(e) => setFechaPago(e.target.value)}
           />
           <label htmlFor="responsable">Responsable: </label>
-          <select name="responsable" id="responsabñe">
+          <select
+            name="responsable"
+            id="responsable"
+            value={responsable}
+            onChange={(e) => setResponsable(e.target.value)}
+          >
+            <option value="---"></option>
             <option value="William">William</option>
             <option value="Cristiam">Cristiam</option>
           </select>
