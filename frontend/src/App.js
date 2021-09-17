@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Index from "./components/Index";
 import Ventas from "./components/Ventas";
+import Estado from "./components/Estado";
 import Vendedores from "./components/Vendedores";
 import Footer from "./components/Footer";
 
@@ -51,6 +52,10 @@ function App() {
 
         <Route path="/ventas">
           <Ventas ventas={ventas} vendedores={vendedores} />
+        </Route>
+
+        <Route path="/estado">
+          <Estado ventas={ventas} />
         </Route>
 
         <Route path="/vendedores">
