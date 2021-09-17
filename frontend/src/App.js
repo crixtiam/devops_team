@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Index from "./components/Index";
 import Ventas from "./components/Ventas";
+import Vendedores from "./components/Vendedores";
 import Footer from "./components/Footer";
 
 function App() {
@@ -23,6 +24,22 @@ function App() {
     return data;
   };
 
+  const [vendedores, setVendedores] = useState([]);
+
+  useEffect(() => {
+    const getVendedores = async () => {
+      const vendedoresFromDb = await fetchVendedores();
+      setVendedores(vendedoresFromDb);
+    };
+    getVendedores();
+  }, []);
+
+  const fetchVendedores = async () => {
+    const res = await fetch("http://localhost:5000/vendedores");
+    const data = await res.json();
+    return data;
+  };
+
   return (
     <div className="App">
       <Router>
@@ -33,7 +50,11 @@ function App() {
         </Route>
 
         <Route path="/ventas">
-          <Ventas ventas={ventas} />
+          <Ventas ventas={ventas} vendedores={vendedores} />
+        </Route>
+
+        <Route path="/vendedores">
+          <Vendedores vendedores={vendedores} />
         </Route>
 
         <Footer />

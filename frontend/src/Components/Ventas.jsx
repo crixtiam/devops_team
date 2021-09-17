@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const Ventas = ({ ventas }) => {
+const Ventas = ({ ventas, vendedores }) => {
   useEffect(() => {
     document.title = "Ventas";
   }, []);
@@ -87,11 +87,9 @@ const Ventas = ({ ventas }) => {
             required
           >
             <option value=""></option>
-            <option value="William">William</option>
-            <option value="Cristiam">Cristiam</option>
-            <option value="Cristian">Cristian</option>
-            <option value="Juan David">Juan David</option>
-            <option value="Diego">Diego</option>
+            {vendedores.map((vendedor) => (
+              <option value={vendedor.nombre}>{vendedor.nombre}</option>
+            ))}
           </select>
 
           <input type="submit" value="Agregar" style={{ marginLeft: "20px" }} />

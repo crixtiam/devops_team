@@ -1,3 +1,60 @@
 {
-  "ventas": []
+  "ventas": [
+    {
+      "valor": 25000,
+      "descripcion": "Camiseta Lobos",
+      "fechaInicial": "2021-09-01",
+      "fechaPago": "2021-09-03",
+      "responsable": "William",
+      "id": 1
+    },
+    {
+      "valor": 15200,
+      "descripcion": "Medias Naranjadas",
+      "fechaInicial": "2021-09-01",
+      "fechaPago": "2021-09-02",
+      "responsable": "Cristiam",
+      "id": 2
+    },
+    {
+      "valor": 79900,
+      "descripcion": "Jean Slim Stretch",
+      "fechaInicial": "2021-09-02",
+      "fechaPago": "2021-09-04",
+      "responsable": "Cristian",
+      "id": 3
+    },
+    {
+      "valor": 61350,
+      "descripcion": "Blusa Blanca",
+      "fechaInicial": "2021-09-03",
+      "fechaPago": "2021-09-04",
+      "responsable": "Juan David",
+      "id": 4
+    },
+    {
+      "valor": 97248,
+      "descripcion": "Correa Cuero",
+      "fechaInicial": "2021-09-05",
+      "fechaPago": "2021-09-30",
+      "responsable": "Diego",
+      "id": 5
+    }
+  ],
+  "vendedores": [
+    {
+      "nombre": "Pedro",
+      "especialidad": "Ropa",
+      "celular": "3578961547",
+      "fechaIngreso": "2021-09-17",
+      "id": 1
+    },
+    {
+      "nombre": "Camilo",
+      "especialidad": "Perfumes",
+      "celular": "3178547814",
+      "fechaIngreso": "2021-09-18",
+      "id": 2
+    }
+  ]
 }
