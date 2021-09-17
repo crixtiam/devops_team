@@ -7,8 +7,6 @@ import Ventas from "./components/Ventas";
 import Footer from "./components/Footer";
 
 function App() {
-  const appName = "Sales COL";
-
   const [ventas, setVentas] = useState([]);
 
   useEffect(() => {

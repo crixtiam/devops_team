@@ -102,41 +102,45 @@ const Ventas = ({ ventas }) => {
       </div>
       <div className="d-flex justify-content-center">
         <table className="mt-4">
-          <tr>
-            <th>ID</th>
-            <th>Valor</th>
-            <th>Descripción</th>
-            <th>Fecha Inicial</th>
-            <th>Fecha Pago</th>
-            <th>Responsable</th>
-            <th>Opciones</th>
-          </tr>
-          {ventas.map((venta) => (
+          <thead>
             <tr>
-              <td>{venta.id}</td>
-              <td>{currencyFormat(venta.valor)}</td>
-              <td>{venta.descripcion}</td>
-              <td>{venta.fechaInicial}</td>
-              <td>{venta.fechaPago}</td>
-              <td>{venta.responsable}</td>
-              <td>
-                <img
-                  src="/edit.svg"
-                  width="21"
-                  className="ss-record-icon"
-                  alt="Edit"
-                  style={{ marginRight: "10px" }}
-                />
-                <img
-                  src="/trash-alt.svg"
-                  alt="Delete"
-                  width="15"
-                  onClick={() => deleteVenta(venta.id)}
-                  style={{ cursor: "pointer" }}
-                />
-              </td>
+              <th>ID</th>
+              <th>Valor</th>
+              <th>Descripción</th>
+              <th>Fecha Inicial</th>
+              <th>Fecha Pago</th>
+              <th>Responsable</th>
+              <th>Opciones</th>
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {ventas.map((venta) => (
+              <tr>
+                <td>{venta.id}</td>
+                <td>{currencyFormat(venta.valor)}</td>
+                <td>{venta.descripcion}</td>
+                <td>{venta.fechaInicial}</td>
+                <td>{venta.fechaPago}</td>
+                <td>{venta.responsable}</td>
+                <td>
+                  <img
+                    src="/edit.svg"
+                    width="21"
+                    className="ss-record-icon"
+                    alt="Edit"
+                    style={{ marginRight: "10px" }}
+                  />
+                  <img
+                    src="/trash-alt.svg"
+                    alt="Delete"
+                    width="15"
+                    onClick={() => deleteVenta(venta.id)}
+                    style={{ cursor: "pointer" }}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>
