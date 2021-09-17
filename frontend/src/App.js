@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./Components/Navbar";
 import Index from "./Components/Index";
 import Ventas from "./Components/Ventas";
+import Footer from "./Components/Footer";
 
 function App() {
   const [ventas, setVentas] = useState([]);
@@ -34,6 +35,8 @@ function App() {
         <Route path="/ventas">
           <Ventas ventas={ventas} />
         </Route>
+
+        <Footer />
       </Router>
     </div>
   );
