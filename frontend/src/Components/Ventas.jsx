@@ -4,6 +4,11 @@ const Ventas = ({ ventas }) => {
   useEffect(() => {
     document.title = "Ventas";
   }, []);
+
+  function currencyFormat(num) {
+    return "$" + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
+
   return (
     <div className="container mt-4">
       <h3>Módulo Administrador de Ventas</h3>
@@ -21,8 +26,6 @@ const Ventas = ({ ventas }) => {
           id="fechaInicial"
           style={{ width: "145px" }}
         />
-        <br />
-        <br />
         <label htmlFor="fechaPago">Fecha Pago: </label>
         <input
           type="date"
@@ -35,7 +38,13 @@ const Ventas = ({ ventas }) => {
           <option value="William">William</option>
           <option value="Cristiam">Cristiam</option>
         </select>
-        <input type="submit" value="Agregar" style={{ marginLeft: "20px" }} />
+        <br />
+        <div className="mt-4" style={{ textAlign: "center" }}>
+          <input type="submit" value="Agregar" style={{ marginLeft: "20px" }} />
+          <br />
+          <br />
+          ---
+        </div>
       </form>
       <table className="mt-4">
         <tr>
@@ -49,7 +58,7 @@ const Ventas = ({ ventas }) => {
         {ventas.map((venta) => (
           <tr>
             <td>{venta.id}</td>
-            <td>{venta.valor}</td>
+            <td>{currencyFormat(venta.valor)}</td>
             <td>{venta.descripcion}</td>
             <td>{venta.fechaInicial}</td>
             <td>{venta.fechaPago}</td>

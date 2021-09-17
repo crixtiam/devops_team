@@ -15,6 +15,14 @@
       "fechaInicial": "2021-09-02",
       "fechaPago": "2021-09-18",
       "responsable": "Cristiam"
+    },
+    {
+      "id": 2,
+      "valor": 262300,
+      "descripcion": "Ventana Aluminio",
+      "fechaInicial": "2021-09-02",
+      "fechaPago": "2021-09-18",
+      "responsable": "Cristiam"
     }
   ]
 }
