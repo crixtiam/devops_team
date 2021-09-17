@@ -33,8 +33,9 @@ const Ventas = ({ ventas }) => {
     window.location.reload(false);
   };
 
-  const deleteVenta = async () => {
-    await fetch("http://localhost:5000/ventas/14", { method: "DELETE" });
+  const deleteVenta = async (id) => {
+    await fetch(`http://localhost:5000/ventas/${id}`, { method: "DELETE" });
+    window.location.reload(false);
   };
 
   return (
@@ -42,8 +43,6 @@ const Ventas = ({ ventas }) => {
       <h3>Módulo Administrador de Ventas</h3>
       <div className="d-flex justify-content-center">
         <form method="post" className="mt-4" onSubmit={addNuevaVenta}>
-          <label htmlFor="ID">ID: </label>
-          <input type="number" className="shortInput" />
           <label htmlFor="valor">Valor: </label>
           <input
             type="text"
@@ -85,18 +84,15 @@ const Ventas = ({ ventas }) => {
             <option value="---"></option>
             <option value="William">William</option>
             <option value="Cristiam">Cristiam</option>
+            <option value="Cristian">Cristian</option>
+            <option value="Juan David">Juan David</option>
+            <option value="Diego">Diego</option>
           </select>
+
+          <input type="submit" value="Agregar" style={{ marginLeft: "20px" }} />
           <br />
-          <div className="mt-4" style={{ textAlign: "center" }}>
-            <input
-              type="submit"
-              value="Agregar"
-              style={{ marginLeft: "20px" }}
-            />
-            <br />
-            <br />
-            <hr />
-          </div>
+          <br />
+          <hr />
         </form>
       </div>
       <div className="d-flex justify-content-center">
@@ -108,6 +104,7 @@ const Ventas = ({ ventas }) => {
             <th>Fecha Inicial</th>
             <th>Fecha Pago</th>
             <th>Responsable</th>
+            <th>Opciones</th>
           </tr>
           {ventas.map((venta) => (
             <tr>
@@ -117,6 +114,12 @@ const Ventas = ({ ventas }) => {
               <td>{venta.fechaInicial}</td>
               <td>{venta.fechaPago}</td>
               <td>{venta.responsable}</td>
+              <td
+                style={{ fontWeight: "bold", color: "#ea554c" }}
+                onClick={() => deleteVenta(venta.id)}
+              >
+                X
+              </td>
             </tr>
           ))}
         </table>
