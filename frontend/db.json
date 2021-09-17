@@ -1,0 +1,20 @@
+{
+  "ventas": [
+    {
+      "id": 1,
+      "valor": 535000,
+      "descripcion": "Puerta Madera",
+      "fechaInicial": "2021-09-01",
+      "fechaPago": "2021-09-15",
+      "responsable": "William"
+    },
+    {
+      "id": 2,
+      "valor": 262300,
+      "descripcion": "Ventana Aluminio",
+      "fechaInicial": "2021-09-02",
+      "fechaPago": "2021-09-18",
+      "responsable": "Cristiam"
+    }
+  ]
+}
