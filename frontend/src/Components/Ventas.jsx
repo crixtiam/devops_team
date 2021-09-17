@@ -20,7 +20,7 @@ const Ventas = ({ ventas }) => {
     await fetch("http://localhost:5000/ventas", {
       method: "POST",
       body: JSON.stringify({
-        valor,
+        valor: parseInt(valor),
         descripcion,
         fechaInicial,
         fechaPago,
@@ -45,16 +45,18 @@ const Ventas = ({ ventas }) => {
         <form method="post" className="mt-4" onSubmit={addNuevaVenta}>
           <label htmlFor="valor">Valor: </label>
           <input
-            type="text"
-            className="shortInput"
+            type="number"
+            style={{ width: "90px" }}
             value={valor}
-            onChange={(e) => setValor(parseInt(e.target.value))}
+            onChange={(e) => setValor(e.target.value)}
+            required
           />
           <label htmlFor="descripcion">Descripción: </label>
           <input
             type="text"
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
+            required
           />
           <label htmlFor="fechaInicial">Fecha Inicial: </label>
           <input
@@ -64,6 +66,7 @@ const Ventas = ({ ventas }) => {
             style={{ width: "145px" }}
             value={fechaInicial}
             onChange={(e) => setFechaInicial(e.target.value)}
+            required
           />
           <label htmlFor="fechaPago">Fecha Pago: </label>
           <input
@@ -73,6 +76,7 @@ const Ventas = ({ ventas }) => {
             style={{ width: "145px" }}
             value={fechaPago}
             onChange={(e) => setFechaPago(e.target.value)}
+            required
           />
           <label htmlFor="responsable">Responsable: </label>
           <select
@@ -80,8 +84,9 @@ const Ventas = ({ ventas }) => {
             id="responsable"
             value={responsable}
             onChange={(e) => setResponsable(e.target.value)}
+            required
           >
-            <option value="---"></option>
+            <option value=""></option>
             <option value="William">William</option>
             <option value="Cristiam">Cristiam</option>
             <option value="Cristian">Cristian</option>
