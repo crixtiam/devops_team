@@ -1,5 +1,9 @@
+import { useEffect } from "react";
+
 const Ventas = ({ ventas }) => {
-  document.title = "Ventas";
+  useEffect(() => {
+    document.title = "Ventas";
+  }, []);
   return (
     <div className="container mt-4">
       <h3>Módulo Administrador de Ventas</h3>
