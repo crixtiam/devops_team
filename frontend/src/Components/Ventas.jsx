@@ -15,7 +15,7 @@ const Ventas = ({ ventas }) => {
   const [fechaPago, setFechaPago] = useState("");
   const [responsable, setResponsable] = useState("");
 
-  const addNuevaVenta = async (event) => {
+  const addVenta = async (event) => {
     event.preventDefault();
     await fetch("http://localhost:5000/ventas", {
       method: "POST",
@@ -42,7 +42,7 @@ const Ventas = ({ ventas }) => {
     <div className="container mt-4">
       <h3>Módulo Administrador de Ventas</h3>
       <div className="d-flex justify-content-center">
-        <form method="post" className="mt-4" onSubmit={addNuevaVenta}>
+        <form method="post" className="mt-4" onSubmit={addVenta}>
           <label htmlFor="valor">Valor: </label>
           <input
             type="number"
@@ -119,11 +119,21 @@ const Ventas = ({ ventas }) => {
               <td>{venta.fechaInicial}</td>
               <td>{venta.fechaPago}</td>
               <td>{venta.responsable}</td>
-              <td
-                style={{ fontWeight: "bold", color: "#ea554c" }}
-                onClick={() => deleteVenta(venta.id)}
-              >
-                X
+              <td>
+                <img
+                  src="/edit.svg"
+                  width="21"
+                  className="ss-record-icon"
+                  alt="Edit"
+                  style={{ marginRight: "10px" }}
+                />
+                <img
+                  src="/trash-alt.svg"
+                  alt="Delete"
+                  width="15"
+                  onClick={() => deleteVenta(venta.id)}
+                  style={{ cursor: "pointer" }}
+                />
               </td>
             </tr>
           ))}
