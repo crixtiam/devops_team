@@ -1,10 +1,10 @@
 import "../src/styles/style.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Navbar from "./Components/Navbar";
-import Index from "./Components/Index";
-import Ventas from "./Components/Ventas";
-import Footer from "./Components/Footer";
+import Navbar from "./components/Navbar";
+import Index from "./components/Index";
+import Ventas from "./components/Ventas";
+import Footer from "./components/Footer";
 
 function App() {
   const appName = "Sales COL";

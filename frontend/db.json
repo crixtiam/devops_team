@@ -17,12 +17,12 @@
       "responsable": "Cristiam"
     },
     {
-      "id": 2,
-      "valor": 262300,
-      "descripcion": "Ventana Aluminio",
-      "fechaInicial": "2021-09-02",
-      "fechaPago": "2021-09-18",
-      "responsable": "Cristiam"
+      "id": 3,
+      "valor": 5275000,
+      "descripcion": "Piso Porcelana",
+      "fechaInicial": "2021-08-22",
+      "fechaPago": "2021-09-02",
+      "responsable": "Diego"
     }
   ]
 }
