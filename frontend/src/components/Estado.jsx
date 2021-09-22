@@ -1,32 +1,28 @@
-import { useEffect } from "react";
-
 const Estado = ({ ventas }) => {
-  useEffect(() => {
-    document.title = "Estado";
-  }, []);
+  document.title = 'Estado';
 
   function currencyFormat(num) {
-    return "$" + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+    return '$' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
   }
 
   const patchEstado = async (id, value) => {
     await fetch(`http://localhost:5000/ventas/${id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify({
         estado: value,
       }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
     window.location.reload(false);
   };
 
   return (
-    <div className="container mt-4">
+    <div className='container mt-4'>
       <h3>Módulo para registrar el estado de la venta</h3>
-      <div className="d-flex justify-content-center">
-        <table className="mt-4">
+      <div className='d-flex justify-content-center'>
+        <table className='mt-4'>
           <thead>
             <tr>
               <th>ID</th>
@@ -49,19 +45,19 @@ const Estado = ({ ventas }) => {
                 <td>{venta.responsable}</td>
                 <td>
                   <select
-                    name="estado"
-                    id="estado"
+                    name='estado'
+                    id='estado'
                     value={venta.estado}
                     onChange={(e) => patchEstado(venta.id, e.target.value)}
                     required
                   >
-                    <option value=""></option>
-                    <option value="Creación">Creación</option>
-                    <option value="Embalaje">Embalaje</option>
-                    <option value="Despacho">Despacho</option>
-                    <option value="Ruta">Ruta</option>
-                    <option value="Ubicación">Ubicación</option>
-                    <option value="Recepción">Recepción</option>
+                    <option value=''></option>
+                    <option value='Creación'>Creación</option>
+                    <option value='Embalaje'>Embalaje</option>
+                    <option value='Despacho'>Despacho</option>
+                    <option value='Ruta'>Ruta</option>
+                    <option value='Ubicación'>Ubicación</option>
+                    <option value='Recepción'>Recepción</option>
                   </select>
                 </td>
               </tr>
