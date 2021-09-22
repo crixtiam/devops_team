@@ -7,7 +7,7 @@
       "fechaPago": "2021-09-03",
       "responsable": "William",
       "id": 1,
-      "estado": "Creación"
+      "estado": "Ubicación"
     },
     {
       "valor": 15200,
@@ -16,34 +16,7 @@
       "fechaPago": "2021-09-02",
       "responsable": "Cristiam",
       "id": 2,
-      "estado": "Embalaje"
-    },
-    {
-      "valor": 79900,
-      "descripcion": "Jean Slim Stretch",
-      "fechaInicial": "2021-09-02",
-      "fechaPago": "2021-09-04",
-      "responsable": "Cristian",
-      "id": 3,
       "estado": "Despacho"
-    },
-    {
-      "valor": 61350,
-      "descripcion": "Blusa Blanca",
-      "fechaInicial": "2021-09-03",
-      "fechaPago": "2021-09-04",
-      "responsable": "Juan David",
-      "id": 4,
-      "estado": "Ruta"
-    },
-    {
-      "valor": 97248,
-      "descripcion": "Correa Cuero",
-      "fechaInicial": "2021-09-05",
-      "fechaPago": "2021-09-30",
-      "responsable": "Diego",
-      "id": 5,
-      "estado": "Creación"
     }
   ],
   "vendedores": [
@@ -60,6 +33,13 @@
       "celular": "3178547814",
       "fechaIngreso": "2021-09-18",
       "id": 2
+    },
+    {
+      "nombre": "William",
+      "especialidad": "Technología",
+      "celular": "3175869877",
+      "fechaIngreso": "2021-09-20",
+      "id": 3
     }
   ]
 }
