@@ -1,12 +1,12 @@
-import "../src/styles/style.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
-import Navbar from "./components/Navbar";
-import Index from "./components/Index";
-import Ventas from "./components/Ventas";
-import Estado from "./components/Estado";
-import Vendedores from "./components/Vendedores";
-import Footer from "./components/Footer";
+import '../src/styles/style.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import Navbar from './components/Navbar';
+import Index from './components/Index';
+import Ventas from './components/Ventas';
+import Estado from './components/Estado';
+import Vendedores from './components/Vendedores';
+import Footer from './components/Footer';
 
 function App() {
   const [ventas, setVentas] = useState([]);
@@ -20,7 +20,7 @@ function App() {
   }, []);
 
   const fetchVentas = async () => {
-    const res = await fetch("http://localhost:5000/ventas");
+    const res = await fetch('http://localhost:5000/ventas');
     const data = await res.json();
     return data;
   };
@@ -36,29 +36,29 @@ function App() {
   }, []);
 
   const fetchVendedores = async () => {
-    const res = await fetch("http://localhost:5000/vendedores");
+    const res = await fetch('http://localhost:5000/vendedores');
     const data = await res.json();
     return data;
   };
 
   return (
-    <div className="App">
+    <div className='App'>
       <Router>
         <Navbar />
 
-        <Route path="/" exact>
+        <Route path='/' exact>
           <Index />
         </Route>
 
-        <Route path="/ventas">
+        <Route path='/ventas'>
           <Ventas ventas={ventas} vendedores={vendedores} />
         </Route>
 
-        <Route path="/estado">
+        <Route path='/estado'>
           <Estado ventas={ventas} />
         </Route>
 
-        <Route path="/vendedores">
+        <Route path='/vendedores'>
           <Vendedores vendedores={vendedores} />
         </Route>
 
