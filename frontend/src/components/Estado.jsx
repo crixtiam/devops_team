@@ -1,22 +1,9 @@
-const Estado = ({ ventas }) => {
+const Estado = () => {
   document.title = 'Estado';
 
   function currencyFormat(num) {
     return '$' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
   }
-
-  const patchEstado = async (id, value) => {
-    await fetch(`http://localhost:5000/ventas/${id}`, {
-      method: 'PATCH',
-      body: JSON.stringify({
-        estado: value,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    window.location.reload(false);
-  };
 
   return (
     <div className='container mt-4'>
@@ -35,33 +22,25 @@ const Estado = ({ ventas }) => {
             </tr>
           </thead>
           <tbody>
-            {ventas.map((venta) => (
-              <tr>
-                <td>{venta.id}</td>
-                <td>{currencyFormat(venta.valor)}</td>
-                <td>{venta.descripcion}</td>
-                <td>{venta.fechaInicial}</td>
-                <td>{venta.fechaPago}</td>
-                <td>{venta.responsable}</td>
-                <td>
-                  <select
-                    name='estado'
-                    id='estado'
-                    value={venta.estado}
-                    onChange={(e) => patchEstado(venta.id, e.target.value)}
-                    required
-                  >
-                    <option value=''></option>
-                    <option value='Creación'>Creación</option>
-                    <option value='Embalaje'>Embalaje</option>
-                    <option value='Despacho'>Despacho</option>
-                    <option value='Ruta'>Ruta</option>
-                    <option value='Ubicación'>Ubicación</option>
-                    <option value='Recepción'>Recepción</option>
-                  </select>
-                </td>
-              </tr>
-            ))}
+            <tr>
+              <td>1</td>
+              <td>$50.000</td>
+              <td>Pantalón</td>
+              <td>2021-09-01</td>
+              <td>2021-09-15</td>
+              <td>Felipe</td>
+              <td>
+                <select name='estado' id='estado' required>
+                  <option value=''></option>
+                  <option value='Creación'>Creación</option>
+                  <option value='Embalaje'>Embalaje</option>
+                  <option value='Despacho'>Despacho</option>
+                  <option value='Ruta'>Ruta</option>
+                  <option value='Ubicación'>Ubicación</option>
+                  <option value='Recepción'>Recepción</option>
+                </select>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
