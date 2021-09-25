@@ -1,10 +1,6 @@
 const Estado = () => {
   document.title = 'Estado';
 
-  function currencyFormat(num) {
-    return '$' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-  }
-
   return (
     <div className='container mt-4'>
       <h3>Módulo para registrar el estado de la venta</h3>
