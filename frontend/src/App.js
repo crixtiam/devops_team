@@ -5,9 +5,10 @@ import Index from './components/Index';
 import ListarVentas from './components/ListarVentas';
 import Venta from './components/Venta';
 import Estado from './components/Estado';
-import Vendedores from './components/Vendedores';
 import Footer from './components/Footer';
 import NuevaVenta from './components/NuevaVenta';
+import Productos from './components/Productos';
+import Producto from './components/Producto';
 
 function App() {
   return (
@@ -17,6 +18,14 @@ function App() {
 
         <Route path='/' exact>
           <Index />
+        </Route>
+
+        <Route path='/productos'>
+          <Productos />
+        </Route>
+
+        <Route path='/producto/:id'>
+          <Producto />
         </Route>
 
         <Route path='/listarventas'>
@@ -33,10 +42,6 @@ function App() {
 
         <Route path='/estado'>
           <Estado />
-        </Route>
-
-        <Route path='/vendedores'>
-          <Vendedores />
         </Route>
 
         <Footer />
