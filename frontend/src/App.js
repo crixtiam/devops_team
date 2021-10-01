@@ -5,6 +5,7 @@ import Index from './components/Index';
 import Ventas from './components/Ventas';
 import Estado from './components/Estado';
 import Vendedores from './components/Vendedores';
+import Usuarios from './components/Usuarios';
 import Footer from './components/Footer';
 
 function App() {
@@ -27,6 +28,10 @@ function App() {
 
         <Route path='/vendedores'>
           <Vendedores />
+        </Route>
+
+        <Route path='/usuarios'>
+          <Usuarios />
         </Route>
 
         <Footer />
