@@ -5,11 +5,7 @@ import Index from './components/Index';
 import ListarVentas from './components/ListarVentas';
 import Venta from './components/Venta';
 import Estado from './components/Estado';
-<<<<<<< HEAD
-import Vendedores from './components/Vendedores';
 import Usuarios from './components/Usuarios';
-=======
->>>>>>> Diego-Valencia
 import Footer from './components/Footer';
 import NuevaVenta from './components/NuevaVenta';
 import Productos from './components/Productos';
