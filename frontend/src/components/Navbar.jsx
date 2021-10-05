@@ -29,9 +29,6 @@ const Navbar = () => {
             <Link className='nav-item nav-link' to='/productos'>
               Productos
             </Link>
-            <Link className='nav-item nav-link' to='/vendedores'>
-              Vendedores
-            </Link>
             <Link className='nav-item nav-link' to='/usuarios'>
               Usuarios
             </Link>
