@@ -32,7 +32,7 @@ const Navbar = () => {
             <Link className='nav-item nav-link' to='/vendedores'>
               Vendedores
             </Link>
-            <Link className='nav-item nav-link' to='#'>
+            <Link className='nav-item nav-link' to='/usuarios'>
               Usuarios
             </Link>
           </div>
