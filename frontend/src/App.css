@@ -97,6 +97,24 @@ input[type='date']:focus {
   border: #ea554c 1px solid;
 }
 
+input[type='email'] {
+  border: #ea554c 1px solid;
+}
+
+input[type='email']:focus {
+  outline: none !important;
+  border: #ea554c 1px solid;
+}
+
+input[type='password'] {
+  border: #ea554c 1px solid;
+}
+
+input[type='password']:focus {
+  outline: none !important;
+  border: #ea554c 1px solid;
+}
+
 select {
   border: #ea554c 1px solid;
   padding: 4px 0px;
