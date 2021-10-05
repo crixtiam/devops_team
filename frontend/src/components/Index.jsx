@@ -3,7 +3,7 @@ const Index = () => {
 
   return (
     <div className='container mt-4'>
-      <h1>Index</h1>
+      <h1>LOG IN</h1>
     </div>
   );
 };
