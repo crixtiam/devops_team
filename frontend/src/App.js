@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 import Index from './components/Index';
 import ListarVentas from './components/ListarVentas';
 import Venta from './components/Venta';
-import Estado from './components/Estado';
 import Usuarios from './components/Usuarios';
 import Footer from './components/Footer';
 import NuevaVenta from './components/NuevaVenta';
@@ -39,10 +38,6 @@ function App() {
 
         <Route path='/nuevaventa'>
           <NuevaVenta />
-        </Route>
-
-        <Route path='/estado'>
-          <Estado />
         </Route>
 
         <Route path='/usuarios'>
