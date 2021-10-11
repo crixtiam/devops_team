@@ -20,7 +20,7 @@ const Productos = () => {
     setDescripcion('');
     setValorUnitario('');
     setEstado('');
-    setProductos([{ ...productos, producto }]);
+    setProductos([...productos, producto.data]);
   };
 
   useEffect(() => {
@@ -39,20 +39,32 @@ const Productos = () => {
           <label htmlFor='descripcion' style={{ marginLeft: '15px' }}>
             Descripción:{' '}
           </label>
-          <input type='text' onChange={(e) => setDescripcion(e.target.value)} required />
+          <input
+            type='text'
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+            required
+          />
           <label htmlFor='valor' style={{ marginLeft: '15px' }}>
             Valor Unitario:{' '}
           </label>
           <input
             type='number'
             style={{ width: '90px' }}
+            value={valorUnitario}
             onChange={(e) => setValorUnitario(e.target.value)}
             required
           />
           <label htmlFor='estado' style={{ marginLeft: '15px' }}>
             Estado:{' '}
           </label>
-          <select name='estado' id='estado' onChange={(e) => setEstado(e.target.value)} required>
+          <select
+            name='estado'
+            id='estado'
+            value={estado}
+            onChange={(e) => setEstado(e.target.value)}
+            required
+          >
             <option value=''></option>
             <option value='Disponible'>Disponible</option>
             <option value='No Disponible'>No Disponible</option>
@@ -62,12 +74,7 @@ const Productos = () => {
       </div>
       <br />
       <div className='d-flex justify-content-center'>
-        <input
-          type='submit'
-          value='Agregar'
-          style={{ marginLeft: '20px' }}
-          onClick={() => addProducto()}
-        />
+        <input type='submit' value='Agregar' style={{ marginLeft: '20px' }} onClick={addProducto} />
       </div>
       <hr />
       <div className='d-flex justify-content-center'>
