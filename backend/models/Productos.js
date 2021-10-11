@@ -3,8 +3,9 @@ const Schema = mongoose.Schema;
 
 const productosSchema = new Schema(
   {
-    nombre: String,
-    precio: Number,
+    descripcion: String,
+    valorUnitario: Number,
+    estado: String,
   },
   { collection: 'productos' }
 );

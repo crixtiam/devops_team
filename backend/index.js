@@ -31,7 +31,7 @@ app.get('/productos', async (req, res) => {
 app.post('/productos', async (req, res) => {
   const producto = new Productos(req.body);
   producto.save();
-  res.status(201);
+  res.send(producto);
 });
 
 // Inicializar servidor express en puerto 3001

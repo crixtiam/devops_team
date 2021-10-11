@@ -7,15 +7,21 @@ const Productos = () => {
 
   const [productos, setProductos] = useState([]);
 
-  // AGREGAR PRODUCTO       useEffect(() => {
-  //   const addProducto = async () => {
-  //     await axios.post('http://localhost:3001/productos', {
-  //       nombre: 'Pantaloneta TL',
-  //       precio: 53500,
-  //     });
-  //   };
-  //   addProducto();
-  // }, []);
+  const [descripcion, setDescripcion] = useState('');
+  const [valorUnitario, setValorUnitario] = useState('');
+  const [estado, setEstado] = useState('');
+
+  const addProducto = async () => {
+    const producto = await axios.post('http://localhost:3001/productos', {
+      descripcion,
+      valorUnitario,
+      estado,
+    });
+    setDescripcion('');
+    setValorUnitario('');
+    setEstado('');
+    setProductos([{ ...productos, producto }]);
+  };
 
   useEffect(() => {
     const getProductos = async () => {
@@ -25,27 +31,28 @@ const Productos = () => {
     getProductos();
   }, []);
 
-  console.log(productos);
-
   return (
     <div className='container mt-4'>
       <h3>Módulo Administrador de Productos</h3>
       <div className='d-flex justify-content-center'>
         <form method='post' className='mt-4'>
-          <label htmlFor='id'>ID: </label>
-          <input type='number' style={{ width: '50px' }} required />
           <label htmlFor='descripcion' style={{ marginLeft: '15px' }}>
             Descripción:{' '}
           </label>
-          <input type='text' required />
+          <input type='text' onChange={(e) => setDescripcion(e.target.value)} required />
           <label htmlFor='valor' style={{ marginLeft: '15px' }}>
             Valor Unitario:{' '}
           </label>
-          <input type='number' style={{ width: '90px' }} required />
+          <input
+            type='number'
+            style={{ width: '90px' }}
+            onChange={(e) => setValorUnitario(e.target.value)}
+            required
+          />
           <label htmlFor='estado' style={{ marginLeft: '15px' }}>
             Estado:{' '}
           </label>
-          <select name='estado' id='estado' required>
+          <select name='estado' id='estado' onChange={(e) => setEstado(e.target.value)} required>
             <option value=''></option>
             <option value='Disponible'>Disponible</option>
             <option value='No Disponible'>No Disponible</option>
@@ -55,7 +62,12 @@ const Productos = () => {
       </div>
       <br />
       <div className='d-flex justify-content-center'>
-        <input type='submit' value='Agregar' style={{ marginLeft: '20px' }} />
+        <input
+          type='submit'
+          value='Agregar'
+          style={{ marginLeft: '20px' }}
+          onClick={() => addProducto()}
+        />
       </div>
       <hr />
       <div className='d-flex justify-content-center'>
@@ -70,56 +82,26 @@ const Productos = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>541</td>
-              <td>Pantalón Slim Negro TS</td>
-              <td>$95.000</td>
-              <td>Disponible</td>
-              <td>
-                <Link to='/producto/1'>
-                  <img
-                    src='/edit.svg'
-                    width='21'
-                    className='ss-record-icon'
-                    alt='Edit'
-                    style={{ cursor: 'pointer', marginRight: '10px' }}
-                  />
-                </Link>
-                <img src='/trash-alt.svg' alt='Delete' width='15' style={{ cursor: 'pointer' }} />
-              </td>
-            </tr>
-            <tr>
-              <td>5847</td>
-              <td>Bolso Cuero</td>
-              <td>$332.495</td>
-              <td>Disponible</td>
-              <td>
-                <img
-                  src='/edit.svg'
-                  width='21'
-                  className='ss-record-icon'
-                  alt='Edit'
-                  style={{ cursor: 'pointer', marginRight: '10px' }}
-                />
-                <img src='/trash-alt.svg' alt='Delete' width='15' style={{ cursor: 'pointer' }} />
-              </td>
-            </tr>
-            <tr>
-              <td>2984</td>
-              <td>Camisa Manga Larga TS</td>
-              <td>$105.000</td>
-              <td>Disponible</td>
-              <td>
-                <img
-                  src='/edit.svg'
-                  width='21'
-                  className='ss-record-icon'
-                  alt='Edit'
-                  style={{ cursor: 'pointer', marginRight: '10px' }}
-                />
-                <img src='/trash-alt.svg' alt='Delete' width='15' style={{ cursor: 'pointer' }} />
-              </td>
-            </tr>
+            {productos.map((producto) => (
+              <tr key={producto._id}>
+                <td style={{ paddingRight: '40px' }}>{producto._id}</td>
+                <td>{producto.descripcion}</td>
+                <td>{producto.valorUnitario}</td>
+                <td>{producto.estado}</td>
+                <td>
+                  <Link to='/producto/1'>
+                    <img
+                      src='/edit.svg'
+                      width='21'
+                      className='ss-record-icon'
+                      alt='Edit'
+                      style={{ cursor: 'pointer', marginRight: '10px' }}
+                    />
+                  </Link>
+                  <img src='/trash-alt.svg' alt='Delete' width='15' style={{ cursor: 'pointer' }} />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
