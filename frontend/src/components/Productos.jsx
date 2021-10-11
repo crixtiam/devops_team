@@ -1,7 +1,31 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Productos = () => {
   document.title = 'Productos';
+
+  const [productos, setProductos] = useState([]);
+
+  // AGREGAR PRODUCTO       useEffect(() => {
+  //   const addProducto = async () => {
+  //     await axios.post('http://localhost:3001/productos', {
+  //       nombre: 'Pantaloneta TL',
+  //       precio: 53500,
+  //     });
+  //   };
+  //   addProducto();
+  // }, []);
+
+  useEffect(() => {
+    const getProductos = async () => {
+      const res = await axios.get('http://localhost:3001/productos');
+      setProductos(res.data);
+    };
+    getProductos();
+  }, []);
+
+  console.log(productos);
 
   return (
     <div className='container mt-4'>
