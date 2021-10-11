@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan'); // Para que muestre las peticiones y respuestas por consola
 const cors = require('cors'); // Para que el front pueda hacer peticiones al back y proteger / restringir el back a solo nuestro front
+require('dotenv').config(); // Para las variables de entorno privadas
 
 // Crear app con express
 const app = express();
@@ -13,9 +14,7 @@ app.use(express.json()); // Para que siempre haga parse JSON de lo que se le man
 
 // Conexión a BD
 mongoose
-  .connect(
-    'mongodb+srv://devops:Q7DeC4y6QQLMbxh@cluster0.ghdje.mongodb.net/sales_col?retryWrites=true&w=majority'
-  )
+  .connect(process.env.MONGO_URI)
   .then((db) => console.log('BD Conectada'))
   .catch((err) => console.log(err));
 
