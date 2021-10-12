@@ -33,10 +33,12 @@ app.post('/productos', async (req, res) => {
   res.send(producto);
 });
 
-// Falta hacer esta de DELETE y la de actualizar con PUT también
-// app.delete('/productos/:_id', async (req, res) => {
+// Falta hacer la de actualizar con PUT
 
-// })
+app.delete('/productos/:_id', async (req, res) => {
+  await Productos.findByIdAndRemove(req.params._id);
+  res.send('Producto Eliminado');
+});
 
 // Inicializar servidor express en puerto 3001
 app.listen(3001, () => {

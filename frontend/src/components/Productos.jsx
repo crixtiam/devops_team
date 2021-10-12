@@ -7,6 +7,14 @@ const Productos = () => {
 
   const [productos, setProductos] = useState([]);
 
+  useEffect(() => {
+    const getProductos = async () => {
+      const res = await axios.get('http://localhost:3001/productos');
+      setProductos(res.data);
+    };
+    getProductos();
+  }, []);
+
   const [descripcion, setDescripcion] = useState('');
   const [valorUnitario, setValorUnitario] = useState('');
   const [estado, setEstado] = useState('');
@@ -23,13 +31,10 @@ const Productos = () => {
     setProductos([...productos, producto.data]); // siempre se usa .data con la info que viene de axios
   };
 
-  useEffect(() => {
-    const getProductos = async () => {
-      const res = await axios.get('http://localhost:3001/productos');
-      setProductos(res.data);
-    };
-    getProductos();
-  }, []);
+  const deleteProducto = async (_id) => {
+    await axios.delete(`http://localhost:3001/productos/${_id}`);
+    setProductos(productos.filter((producto) => producto?._id !== _id));
+  };
 
   return (
     <div className='container mt-4'>
@@ -105,7 +110,13 @@ const Productos = () => {
                       style={{ cursor: 'pointer', marginRight: '10px' }}
                     />
                   </Link>
-                  <img src='/trash-alt.svg' alt='Delete' width='15' style={{ cursor: 'pointer' }} />
+                  <img
+                    src='/trash-alt.svg'
+                    alt='Delete'
+                    width='15'
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => deleteProducto(producto._id)}
+                  />
                 </td>
               </tr>
             ))}
