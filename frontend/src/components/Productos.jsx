@@ -20,7 +20,7 @@ const Productos = () => {
     setDescripcion('');
     setValorUnitario('');
     setEstado('');
-    setProductos([...productos, producto.data]);
+    setProductos([...productos, producto.data]); // siempre se usa .data con la info que viene de axios
   };
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Productos = () => {
     <div className='container mt-4'>
       <h3>Módulo Administrador de Productos</h3>
       <div className='d-flex justify-content-center'>
-        <form method='post' className='mt-4'>
+        <form className='mt-4'>
           <label htmlFor='descripcion' style={{ marginLeft: '15px' }}>
             Descripción:{' '}
           </label>

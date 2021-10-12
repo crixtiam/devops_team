@@ -33,6 +33,11 @@ app.post('/productos', async (req, res) => {
   res.send(producto);
 });
 
+// Falta hacer esta de DELETE y la de actualizar con PUT también
+// app.delete('/productos/:_id', async (req, res) => {
+
+// })
+
 // Inicializar servidor express en puerto 3001
 app.listen(3001, () => {
   console.log('API corriendo en el puerto 3001.');
