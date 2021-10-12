@@ -24,7 +24,7 @@ function App() {
           <Productos />
         </Route>
 
-        <Route path='/producto/:id'>
+        <Route path='/producto/:_id'>
           <Producto />
         </Route>
 

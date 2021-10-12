@@ -33,7 +33,18 @@ app.post('/productos', async (req, res) => {
   res.send(producto);
 });
 
-// Falta hacer la de actualizar con PUT
+app.put('/productos/:_id', async (req, res) => {
+  const producto = await Productos.findOneAndUpdate(
+    { _id: req.params._id },
+    {
+      descripcion: req.body.descripcion,
+      valorUnitario: req.body.valorUnitario,
+      estado: req.body.estado,
+    }
+  );
+  producto.save();
+  res.send('Producto Actualizado');
+});
 
 app.delete('/productos/:_id', async (req, res) => {
   await Productos.findByIdAndRemove(req.params._id);

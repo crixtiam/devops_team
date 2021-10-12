@@ -101,7 +101,17 @@ const Productos = () => {
                 <td>{producto.valorUnitario}</td>
                 <td>{producto.estado}</td>
                 <td>
-                  <Link to='/producto/1'>
+                  <Link
+                    to={{
+                      pathname: `/producto/${producto._id}`,
+                      state: {
+                        _id: producto._id,
+                        descripcion: producto.descripcion,
+                        valorUnitario: producto.valorUnitario,
+                        estado: producto.estado,
+                      },
+                    }}
+                  >
                     <img
                       src='/edit.svg'
                       width='21'
