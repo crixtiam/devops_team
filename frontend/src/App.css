@@ -1,7 +1,7 @@
 th {
   padding: 5px 30px;
   color: #ea554c;
-  text-align: left;
+  text-align: center;
 }
 
 td {
@@ -93,6 +93,24 @@ input[type='date'] {
 }
 
 input[type='date']:focus {
+  outline: none !important;
+  border: #ea554c 1px solid;
+}
+
+input[type='email'] {
+  border: #ea554c 1px solid;
+}
+
+input[type='email']:focus {
+  outline: none !important;
+  border: #ea554c 1px solid;
+}
+
+input[type='password'] {
+  border: #ea554c 1px solid;
+}
+
+input[type='password']:focus {
   outline: none !important;
   border: #ea554c 1px solid;
 }

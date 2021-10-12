@@ -1,37 +1,89 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Productos = () => {
   document.title = 'Productos';
+
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+    const getProductos = async () => {
+      const res = await axios.get('http://localhost:3001/productos');
+      setProductos(res.data);
+    };
+    getProductos();
+  }, []);
+
+  const [descripcion, setDescripcion] = useState('');
+  const [valorUnitario, setValorUnitario] = useState('');
+  const [estado, setEstado] = useState('');
+
+  const addProducto = async (e) => {
+    e.preventDefault();
+    const producto = await axios.post('http://localhost:3001/productos', {
+      descripcion,
+      valorUnitario,
+      estado,
+    });
+    setDescripcion('');
+    setValorUnitario('');
+    setEstado('');
+    setProductos([...productos, producto.data]); // siempre se usa .data con la info que viene de axios
+  };
+
+  const deleteProducto = async (_id) => {
+    const confirm = window.confirm('Esta seguro de borrar el producto?');
+    if (confirm === true) {
+      await axios.delete(`http://localhost:3001/productos/${_id}`);
+      setProductos(productos.filter((producto) => producto?._id !== _id));
+    }
+  };
 
   return (
     <div className='container mt-4'>
       <h3>Módulo Administrador de Productos</h3>
       <div className='d-flex justify-content-center'>
-        <form method='post' className='mt-4'>
-          <label htmlFor='id'>ID: </label>
-          <input type='number' style={{ width: '50px' }} required />
+        <form className='mt-4' onSubmit={addProducto}>
           <label htmlFor='descripcion' style={{ marginLeft: '15px' }}>
             Descripción:{' '}
           </label>
-          <input type='text' required />
+          <input
+            type='text'
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+            required
+          />
           <label htmlFor='valor' style={{ marginLeft: '15px' }}>
             Valor Unitario:{' '}
           </label>
-          <input type='number' style={{ width: '90px' }} required />
+          <input
+            type='number'
+            style={{ width: '90px' }}
+            value={valorUnitario}
+            onChange={(e) => setValorUnitario(e.target.value)}
+            required
+          />
           <label htmlFor='estado' style={{ marginLeft: '15px' }}>
             Estado:{' '}
           </label>
-          <select name='estado' id='estado' required>
+          <select
+            name='estado'
+            id='estado'
+            value={estado}
+            onChange={(e) => setEstado(e.target.value)}
+            required
+          >
             <option value=''></option>
             <option value='Disponible'>Disponible</option>
             <option value='No Disponible'>No Disponible</option>
           </select>
           <br />
+          <br />
+          <div className='d-flex justify-content-center'>
+            <input type='submit' value='Agregar' />
+          </div>
         </form>
-      </div>
-      <br />
-      <div className='d-flex justify-content-center'>
-        <input type='submit' value='Agregar' style={{ marginLeft: '20px' }} />
       </div>
       <hr />
       <div className='d-flex justify-content-center'>
@@ -46,56 +98,42 @@ const Productos = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>541</td>
-              <td>Pantalón Slim Negro TS</td>
-              <td>$95.000</td>
-              <td>Disponible</td>
-              <td>
-                <Link to='/producto/1'>
+            {productos.map((producto) => (
+              <tr key={producto._id}>
+                <td style={{ paddingRight: '40px' }}>{producto._id}</td>
+                <td>{producto.descripcion}</td>
+                <td>{producto.valorUnitario}</td>
+                <td>{producto.estado}</td>
+                <td>
+                  <Link
+                    to={{
+                      pathname: `/producto/${producto._id}`,
+                      state: {
+                        _id: producto._id,
+                        descripcion: producto.descripcion,
+                        valorUnitario: producto.valorUnitario,
+                        estado: producto.estado,
+                      },
+                    }}
+                  >
+                    <img
+                      src='/edit.svg'
+                      width='21'
+                      className='ss-record-icon'
+                      alt='Edit'
+                      style={{ cursor: 'pointer', marginRight: '10px' }}
+                    />
+                  </Link>
                   <img
-                    src='/edit.svg'
-                    width='21'
-                    className='ss-record-icon'
-                    alt='Edit'
-                    style={{ cursor: 'pointer', marginRight: '10px' }}
+                    src='/trash-alt.svg'
+                    alt='Delete'
+                    width='15'
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => deleteProducto(producto._id)}
                   />
-                </Link>
-                <img src='/trash-alt.svg' alt='Delete' width='15' style={{ cursor: 'pointer' }} />
-              </td>
-            </tr>
-            <tr>
-              <td>5847</td>
-              <td>Bolso Cuero</td>
-              <td>$332.495</td>
-              <td>Disponible</td>
-              <td>
-                <img
-                  src='/edit.svg'
-                  width='21'
-                  className='ss-record-icon'
-                  alt='Edit'
-                  style={{ cursor: 'pointer', marginRight: '10px' }}
-                />
-                <img src='/trash-alt.svg' alt='Delete' width='15' style={{ cursor: 'pointer' }} />
-              </td>
-            </tr>
-            <tr>
-              <td>2984</td>
-              <td>Camisa Manga Larga TS</td>
-              <td>$105.000</td>
-              <td>Disponible</td>
-              <td>
-                <img
-                  src='/edit.svg'
-                  width='21'
-                  className='ss-record-icon'
-                  alt='Edit'
-                  style={{ cursor: 'pointer', marginRight: '10px' }}
-                />
-                <img src='/trash-alt.svg' alt='Delete' width='15' style={{ cursor: 'pointer' }} />
-              </td>
-            </tr>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
