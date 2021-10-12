@@ -19,7 +19,8 @@ const Productos = () => {
   const [valorUnitario, setValorUnitario] = useState('');
   const [estado, setEstado] = useState('');
 
-  const addProducto = async () => {
+  const addProducto = async (e) => {
+    e.preventDefault();
     const producto = await axios.post('http://localhost:3001/productos', {
       descripcion,
       valorUnitario,
@@ -32,15 +33,18 @@ const Productos = () => {
   };
 
   const deleteProducto = async (_id) => {
-    await axios.delete(`http://localhost:3001/productos/${_id}`);
-    setProductos(productos.filter((producto) => producto?._id !== _id));
+    const confirm = window.confirm('Esta seguro de borrar el producto?');
+    if (confirm === true) {
+      await axios.delete(`http://localhost:3001/productos/${_id}`);
+      setProductos(productos.filter((producto) => producto?._id !== _id));
+    }
   };
 
   return (
     <div className='container mt-4'>
       <h3>Módulo Administrador de Productos</h3>
       <div className='d-flex justify-content-center'>
-        <form className='mt-4'>
+        <form className='mt-4' onSubmit={addProducto}>
           <label htmlFor='descripcion' style={{ marginLeft: '15px' }}>
             Descripción:{' '}
           </label>
@@ -75,11 +79,11 @@ const Productos = () => {
             <option value='No Disponible'>No Disponible</option>
           </select>
           <br />
+          <br />
+          <div className='d-flex justify-content-center'>
+            <input type='submit' value='Agregar' />
+          </div>
         </form>
-      </div>
-      <br />
-      <div className='d-flex justify-content-center'>
-        <input type='submit' value='Agregar' style={{ marginLeft: '20px' }} onClick={addProducto} />
       </div>
       <hr />
       <div className='d-flex justify-content-center'>
