@@ -1,4 +1,23 @@
+import { useState } from 'react';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+
 const Producto = () => {
+  const data = useLocation();
+  const _id = data?.state?._id;
+  const [descripcion, setDescripcion] = useState(data?.state?.descripcion);
+  const [valorUnitario, setValorUnitario] = useState(data?.state?.valorUnitario);
+  const [estado, setEstado] = useState(data?.state?.estado);
+
+  const updateProducto = async () => {
+    await axios.put(`http://localhost:3001/productos/${_id}`, {
+      descripcion: descripcion,
+      valorUnitario: valorUnitario,
+      estado: estado,
+    });
+    window.history.back();
+  };
+
   return (
     <div className='container mt-4'>
       <h3>Interfaz Info de Producto Específico</h3>
@@ -14,19 +33,24 @@ const Producto = () => {
           </thead>
           <tbody>
             <tr>
-              <td style={{ padding: '5px 20px' }}>541</td>
+              <td style={{ padding: '5px 20px' }}>{_id}</td>
               <td style={{ padding: '5px 20px' }}>
-                <input type='text' value='Pantalón Slim Negro TS' />
+                <input
+                  type='text'
+                  value={descripcion}
+                  onChange={(e) => setDescripcion(e.target.value)}
+                />
               </td>
               <td style={{ padding: '5px 20px' }}>
-                <input type='number' value='95000' />
+                <input
+                  type='number'
+                  value={valorUnitario}
+                  onChange={(e) => setValorUnitario(e.target.value)}
+                />
               </td>
               <td style={{ padding: '5px 20px' }}>
-                <select>
-                  <option value=''></option>
-                  <option value='Disponible' selected>
-                    Disponible
-                  </option>
+                <select value={estado} onChange={(e) => setEstado(e.target.value)}>
+                  <option value='Disponible'>Disponible</option>
                   <option value='No Disponible'>No Disponible</option>
                 </select>
               </td>
@@ -36,7 +60,7 @@ const Producto = () => {
       </div>
       <br />
       <div className='d-flex justify-content-center'>
-        <button>Guardar</button>
+        <button onClick={updateProducto}>Guardar</button>
       </div>
     </div>
   );
