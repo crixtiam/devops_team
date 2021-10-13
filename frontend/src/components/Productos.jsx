@@ -5,6 +5,11 @@ import axios from 'axios';
 const Productos = () => {
   document.title = 'Productos';
 
+  // Dar formato al valor con $ al principio y separado por .
+  function formatoMoneda(num) {
+    return '$' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+  }
+
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
@@ -102,7 +107,7 @@ const Productos = () => {
               <tr key={producto._id}>
                 <td style={{ paddingRight: '40px' }}>{producto._id}</td>
                 <td>{producto.descripcion}</td>
-                <td>{producto.valorUnitario}</td>
+                <td>{formatoMoneda(producto.valorUnitario)}</td>
                 <td>{producto.estado}</td>
                 <td>
                   <Link
