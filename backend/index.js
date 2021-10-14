@@ -20,8 +20,32 @@ mongoose
 
 // Modelos de la base de datos
 const Productos = require('./models/Productos');
+const Ventas = require('./models/Ventas');
 
-// Rutas
+// Rutas Ventas
+app.get('/ventas', async (req, res) => {
+  const ventas = await Ventas.find({});
+  res.send(ventas);
+});
+
+app.post('/ventas', async (req, res) => {
+  const venta = new Ventas(req.body);
+  venta.save();
+  res.send(venta);
+});
+
+app.put('/ventas/:_id', async (req, res) => {
+  const venta = await Ventas.findOneAndUpdate({ _id: req.params._id }, req.body, { new: true });
+  venta.save();
+  res.send(venta);
+});
+
+app.delete('/ventas/:_id', async (req, res) => {
+  const venta = await Ventas.findByIdAndRemove(req.params._id);
+  res.send(venta);
+});
+
+// Rutas Productos
 app.get('/productos', async (req, res) => {
   const productos = await Productos.find({});
   res.send(productos);
@@ -34,21 +58,16 @@ app.post('/productos', async (req, res) => {
 });
 
 app.put('/productos/:_id', async (req, res) => {
-  const producto = await Productos.findOneAndUpdate(
-    { _id: req.params._id },
-    {
-      descripcion: req.body.descripcion,
-      valorUnitario: req.body.valorUnitario,
-      estado: req.body.estado,
-    }
-  );
+  const producto = await Productos.findOneAndUpdate({ _id: req.params._id }, req.body, {
+    new: true,
+  });
   producto.save();
-  res.send('Producto Actualizado');
+  res.send(producto);
 });
 
 app.delete('/productos/:_id', async (req, res) => {
-  await Productos.findByIdAndRemove(req.params._id);
-  res.send('Producto Eliminado');
+  const producto = await Productos.findByIdAndRemove(req.params._id);
+  res.send(producto);
 });
 
 // Inicializar servidor express en puerto 3001
