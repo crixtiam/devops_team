@@ -1,8 +1,13 @@
 const Footer = () => {
   return (
-    <footer>
-      <p>&copy; Sales COL {new Date().getFullYear()}</p>
-    </footer>
+    <>
+      <br />
+      <br />
+      <br />
+      <footer>
+        <p>&copy; Sales COL {new Date().getFullYear()}</p>
+      </footer>
+    </>
   );
 };
 
