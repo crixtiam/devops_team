@@ -7,6 +7,8 @@ const ListarVentas = () => {
 
   const [ventas, setVentas] = useState([]);
 
+  const [searchTerm, setSearchTerm] = useState('');
+
   useEffect(() => {
     const getVentas = async () => {
       const res = await axios.get('http://localhost:3001/ventas');
@@ -39,10 +41,13 @@ const ListarVentas = () => {
           name='search'
           id='search'
           style={{ width: '500px' }}
-          placeholder='Buscar por ID Venta, ID Cliente, o Nombre Cliente'
+          placeholder='Buscar por cualquiera de los parámetros...'
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
         />
         <Link to='/nuevaventa'>
-          <button>Nueva Venta</button>
+          <button style={{ marginLeft: '20px' }}>Nueva Venta</button>
         </Link>
       </div>
       <br />
@@ -60,38 +65,54 @@ const ListarVentas = () => {
             </tr>
           </thead>
           <tbody>
-            {ventas.map((venta) => (
-              <tr key={venta._id}>
-                <td>{venta._id}</td>
-                <td>{venta.valorTotal && formatoMoneda(venta.valorTotal)}</td>
-                <td>{venta.fecha}</td>
-                <td>{venta.idCliente}</td>
-                <td>{venta.nombreCliente}</td>
-                <td>{venta.encargado}</td>
-                <td>
-                  <Link
-                    to={{
-                      pathname: `/venta/${venta._id}`,
-                      state: { venta: venta },
-                    }}
-                  >
+            {ventas
+              .filter((venta) => {
+                if (searchTerm === '') {
+                  return venta;
+                } else if (
+                  venta._id.toString().indexOf(searchTerm) > -1 ||
+                  venta.valorTotal.toString().indexOf(searchTerm) > -1 ||
+                  venta.fecha.toString().indexOf(searchTerm) > -1 ||
+                  venta.idCliente.toString().indexOf(searchTerm) > -1 ||
+                  venta.nombreCliente.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  venta.encargado.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return venta;
+                }
+                return false;
+              })
+              .map((venta) => (
+                <tr key={venta._id}>
+                  <td>{venta._id}</td>
+                  <td>{venta.valorTotal && formatoMoneda(venta.valorTotal)}</td>
+                  <td>{venta.fecha}</td>
+                  <td>{venta.idCliente}</td>
+                  <td>{venta.nombreCliente}</td>
+                  <td>{venta.encargado}</td>
+                  <td>
+                    <Link
+                      to={{
+                        pathname: `/venta/${venta._id}`,
+                        state: { venta: venta },
+                      }}
+                    >
+                      <img
+                        src='/edit.svg'
+                        width='21'
+                        alt='Edit'
+                        style={{ cursor: 'pointer', marginRight: '10px' }}
+                      />
+                    </Link>
                     <img
-                      src='/edit.svg'
-                      width='21'
-                      alt='Edit'
-                      style={{ cursor: 'pointer', marginRight: '10px' }}
+                      src='/trash-alt.svg'
+                      alt='Delete'
+                      width='15'
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => deleteVenta(venta._id)}
                     />
-                  </Link>
-                  <img
-                    src='/trash-alt.svg'
-                    alt='Delete'
-                    width='15'
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => deleteVenta(venta._id)}
-                  />
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
