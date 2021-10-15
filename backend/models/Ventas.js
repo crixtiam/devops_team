@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+ObjectId = Schema.ObjectId;
 
 const productosVentaSchema = new Schema({
   descripcion: String,
   cantidad: Number,
-  precioUnitario: Number,
+  valorUnitario: Number,
+  _id: ObjectId,
 });
 
 const ventasSchema = new Schema(
@@ -15,6 +17,7 @@ const ventasSchema = new Schema(
     estadoVenta: String,
     nombreCliente: String,
     productosVenta: [productosVentaSchema],
+    valorTotal: Number,
   },
   { collection: 'ventas' }
 );
