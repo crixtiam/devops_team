@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const NuevaVenta = () => {
@@ -136,7 +137,7 @@ const NuevaVenta = () => {
               </tr>
               <tr>
                 <td className='red-border text-center'>
-                  <select onChange={(e) => handleProductoSeleccionado(e.target.value)}>
+                  <select onChange={(e) => handleProductoSeleccionado(e.target.value)} required>
                     <option value='' />
                     {productos.map((producto) => (
                       <option value={producto._id} key={producto._id}>
@@ -205,6 +206,9 @@ const NuevaVenta = () => {
           </table>
           <br />
           <div className='d-flex justify-content-center'>
+            <Link to='/listarventas'>
+              <button style={{ marginRight: '20px' }}>Cancelar</button>
+            </Link>
             <input type='submit' value='Enviar' />
           </div>
         </form>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 const Producto = () => {
   const data = useLocation();
@@ -60,6 +60,9 @@ const Producto = () => {
       </div>
       <br />
       <div className='d-flex justify-content-center'>
+        <Link to='/productos'>
+          <button style={{ marginRight: '20px' }}>Cancelar</button>
+        </Link>
         <button onClick={updateProducto}>Guardar</button>
       </div>
     </div>

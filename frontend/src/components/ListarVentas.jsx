@@ -15,6 +15,14 @@ const ListarVentas = () => {
     getVentas();
   }, []);
 
+  const deleteVenta = async (_id) => {
+    const res = window.confirm('Está seguro de eliminar esta venta?');
+    if (res === true) {
+      await axios.delete(`http://localhost:3001/ventas/${_id}`);
+      setVentas(ventas.filter((venta) => venta._id !== _id));
+    }
+  };
+
   // Dar formato al valor con $ al principio y separado por .
   function formatoMoneda(num) {
     return '$' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
@@ -61,7 +69,12 @@ const ListarVentas = () => {
                 <td>{venta.nombreCliente}</td>
                 <td>{venta.encargado}</td>
                 <td>
-                  <Link to='/venta/1'>
+                  <Link
+                    to={{
+                      pathname: `/venta/${venta._id}`,
+                      state: { venta: venta },
+                    }}
+                  >
                     <img
                       src='/edit.svg'
                       width='21'
@@ -69,7 +82,13 @@ const ListarVentas = () => {
                       style={{ cursor: 'pointer', marginRight: '10px' }}
                     />
                   </Link>
-                  <img src='/trash-alt.svg' alt='Delete' width='15' style={{ cursor: 'pointer' }} />
+                  <img
+                    src='/trash-alt.svg'
+                    alt='Delete'
+                    width='15'
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => deleteVenta(venta._id)}
+                  />
                 </td>
               </tr>
             ))}
