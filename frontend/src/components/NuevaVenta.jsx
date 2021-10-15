@@ -11,7 +11,6 @@ const NuevaVenta = () => {
   const [listaVenta, setListaVenta] = useState([]);
   const [productoSeleccionado, setProductoSeleccionado] = useState([]);
   const [cantidad, setCantidad] = useState();
-  const [valorTotal, setValorTotal] = useState();
 
   useEffect(() => {
     const getProductos = async () => {
@@ -39,9 +38,6 @@ const NuevaVenta = () => {
 
   const enviarVenta = async (e) => {
     e.preventDefault();
-    setValorTotal(
-      listaVenta.reduce((sum, current) => sum + current.valorUnitario * current.cantidad, 0)
-    );
     await axios.post('http://localhost:3001/ventas', {
       encargado: encargado,
       idCliente: idCliente,
@@ -49,7 +45,10 @@ const NuevaVenta = () => {
       estadoVenta: estado,
       nombreCliente: nombreCliente,
       productosVenta: [...listaVenta],
-      valorTotal: valorTotal,
+      valorTotal: listaVenta.reduce(
+        (sum, current) => sum + current.valorUnitario * current.cantidad,
+        0
+      ),
     });
     window.history.back();
   };
@@ -194,7 +193,12 @@ const NuevaVenta = () => {
                   Total:
                 </td>
                 <td className='red-border text-center'>
-                  {valorTotal ? formatoMoneda(valorTotal) : ''}
+                  {formatoMoneda(
+                    listaVenta.reduce(
+                      (sum, current) => sum + current.valorUnitario * current.cantidad,
+                      0
+                    )
+                  )}
                 </td>
               </tr>
             </tbody>

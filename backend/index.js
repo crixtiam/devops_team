@@ -30,7 +30,6 @@ app.get('/ventas', async (req, res) => {
 
 app.post('/ventas', async (req, res) => {
   const venta = new Ventas(req.body);
-  console.log(venta);
   venta.save();
   res.send(venta);
 });
