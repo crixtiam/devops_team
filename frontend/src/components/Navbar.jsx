@@ -18,7 +18,7 @@ const Navbar = ({ user, setUser }) => {
             Sales COL
           </Link>
 
-          {user.email && (
+          {user?.email && (
             <>
               <Link className='nav-item nav-link' to='/listarventas'>
                 Ventas
@@ -34,7 +34,7 @@ const Navbar = ({ user, setUser }) => {
             </>
           )}
         </div>
-        {user.email && (
+        {user?.email && (
           <div>
             <img
               src={user.imageUrl}

@@ -18,7 +18,7 @@ function App() {
       <Router>
         <Navbar user={user} setUser={setUser} />
 
-        {user.email ? (
+        {user?.email ? (
           <>
             <Route path='/' exact>
               <Productos />
