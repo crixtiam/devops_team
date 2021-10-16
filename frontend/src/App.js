@@ -1,6 +1,6 @@
 import '../src/App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useState } from 'react';
 import Navbar from './components/Navbar';
 import ListarVentas from './components/ListarVentas';
 import Venta from './components/Venta';
@@ -12,16 +12,16 @@ import Producto from './components/Producto';
 import LogIn from './components/LogIn';
 
 function App() {
-  const { isAuthenticated } = useAuth0();
+  const [user, setUser] = useState({});
   return (
     <div className='App'>
       <Router>
-        <Navbar />
+        <Navbar user={user} setUser={setUser} />
 
-        {isAuthenticated ? (
+        {user.email ? (
           <>
             <Route path='/' exact>
-              <ListarVentas />
+              <Productos />
             </Route>
 
             <Route path='/productos'>
@@ -49,7 +49,7 @@ function App() {
             </Route>
           </>
         ) : (
-          <LogIn />
+          <LogIn setUser={setUser} />
         )}
 
         <Footer />

@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
-import LogoutButton from './LogoutButton';
+import { GoogleLogout } from 'react-google-login';
 
-const Navbar = () => {
-  const { user, isAuthenticated } = useAuth0();
+const Navbar = ({ user, setUser }) => {
+  const logout = () => {
+    setUser({});
+  };
 
   return (
     <>
@@ -12,32 +13,43 @@ const Navbar = () => {
           <Link to='/'>
             <img src='/tag.png' alt='Logo' height='40' className='me-3 ms-3 mt-1 mb-1' />
           </Link>
+
           <Link className='navbar-brand' to='/'>
             Sales COL
           </Link>
 
-          {isAuthenticated && user['http://localhost/roles'] == 'Administrador' && (
+          {user.email && (
             <>
               <Link className='nav-item nav-link' to='/listarventas'>
                 Ventas
               </Link>
+
               <Link className='nav-item nav-link' to='/productos'>
                 Productos
               </Link>
+
               <Link className='nav-item nav-link' to='/usuarios'>
                 Usuarios
               </Link>
             </>
           )}
         </div>
-
-        {isAuthenticated && (
+        {user.email && (
           <div>
-            <img src={user.picture} height='50px' style={{ marginRight: '20px' }} />
-            <span style={{ marginRight: '20px' }}>
-              {user.name} ({user['http://localhost/roles']})
+            <img
+              src={user.imageUrl}
+              alt='Profile Pic'
+              height='45px'
+              style={{ marginRight: '15px' }}
+            />
+            <span style={{ marginRight: '15px' }}>{user.name}</span>
+            <span style={{ marginRight: '15px' }}>
+              <GoogleLogout
+                clientId='1033523848815-sq6ukknhlfk22kh6osn1nbrt28krj8o2.apps.googleusercontent.com'
+                buttonText='Logout'
+                onLogoutSuccess={logout}
+              ></GoogleLogout>
             </span>
-            <LogoutButton />
           </div>
         )}
       </nav>

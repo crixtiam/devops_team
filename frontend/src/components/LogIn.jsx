@@ -1,19 +1,22 @@
-// import { Link } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useState } from 'react';
+import { GoogleLogin } from 'react-google-login';
 
-const LogIn = () => {
-  const { loginWithRedirect } = useAuth0();
+const LogIn = ({ setUser }) => {
+  const responseGoogle = (response) => {
+    setUser(response.profileObj);
+  };
 
   return (
-    <div style={{ margin: 'auto', width: '25%', marginTop: '60px' }}>
-      <p>Por favor ingrese para hacer uso de la aplicación</p>
-      <div className='d-flex justify-content-center'>
-        <button
-          style={{ padding: '15px 30px', fontSize: '18px', fontWeight: 'bold' }}
-          onClick={() => loginWithRedirect()}
-        >
-          Log In
-        </button>
+    <div style={{ margin: 'auto', width: '25%', marginTop: '100px' }}>
+      <p>Por favor haga Login para acceder a la aplicación</p>
+      <div style={{ margin: 'auto', width: '25%' }}>
+        <GoogleLogin
+          clientId='1033523848815-sq6ukknhlfk22kh6osn1nbrt28krj8o2.apps.googleusercontent.com'
+          buttonText='Login'
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
+        />
       </div>
     </div>
   );
