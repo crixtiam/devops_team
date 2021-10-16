@@ -25,7 +25,6 @@ const Producto = () => {
         <table className='mt-4'>
           <thead>
             <tr>
-              <th>ID</th>
               <th>Descripción</th>
               <th>Valor Unitario</th>
               <th>Estado</th>
@@ -33,7 +32,6 @@ const Producto = () => {
           </thead>
           <tbody>
             <tr>
-              <td style={{ padding: '5px 20px' }}>{_id}</td>
               <td style={{ padding: '5px 20px' }}>
                 <input
                   type='text'

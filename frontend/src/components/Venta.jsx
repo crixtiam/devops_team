@@ -106,15 +106,17 @@ const Venta = () => {
                 </td>
               </tr>
               <tr>
-                <th className='th-venta red-border text-center'>ID</th>
-                <th className='th-venta red-border text-center'>Descripción</th>
+                <th colSpan='2' className='th-venta red-border text-center'>
+                  Descripción
+                </th>
                 <th className='th-venta red-border text-center'>Cantidad</th>
                 <th className='th-venta red-border text-center'>Precio Unitario</th>
               </tr>
               {listaVenta.map((producto) => (
                 <tr>
-                  <td className='red-border text-center'>{producto._id}</td>
-                  <td className='red-border text-center'>{producto.descripcion}</td>
+                  <td colSpan='2' className='red-border text-center'>
+                    {producto.descripcion}
+                  </td>
                   <td className='red-border text-center'>
                     <input
                       type='number'

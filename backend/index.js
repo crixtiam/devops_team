@@ -21,6 +21,7 @@ mongoose
 // Modelos de la base de datos
 const Productos = require('./models/Productos');
 const Ventas = require('./models/Ventas');
+const Usuarios = require('./models/Usuarios');
 
 // Rutas Ventas
 app.get('/ventas', async (req, res) => {
@@ -68,6 +69,22 @@ app.put('/productos/:_id', async (req, res) => {
 app.delete('/productos/:_id', async (req, res) => {
   const producto = await Productos.findByIdAndRemove(req.params._id);
   res.send(producto);
+});
+
+// Rutas Usuarios
+app.get('/usuarios', async (req, res) => {
+  const usuarios = await Usuarios.find();
+  res.send(usuarios);
+});
+
+app.get('/usuarios/:email', async (req, res) => {
+  const usuario = await Usuarios.find({ email: req.params.email });
+  res.send(usuario);
+});
+
+app.post('/usuarios', async (req, res) => {
+  const usuario = await Usuarios.updateOne({ email: req.body.email }, req.body, { upsert: true });
+  res.send(usuario);
 });
 
 // Inicializar servidor express en puerto 3001

@@ -10,22 +10,26 @@ import NuevaVenta from './components/NuevaVenta';
 import Productos from './components/Productos';
 import Producto from './components/Producto';
 import LogIn from './components/LogIn';
+import NoAutorizado from './components/NoAutorizado';
 
 function App() {
   const [user, setUser] = useState({});
+
   return (
     <div className='App'>
       <Router>
         <Navbar user={user} setUser={setUser} />
 
-        {user?.email ? (
+        {user?.email &&
+        user?.estado === 'Autorizado' &&
+        ['Administrador', 'Vendedor'].indexOf(user.rol) > -1 ? (
           <>
             <Route path='/' exact>
-              <Productos />
+              <ListarVentas />
             </Route>
 
             <Route path='/productos'>
-              <Productos />
+              <Productos user={user} />
             </Route>
 
             <Route path='/producto/:_id'>
@@ -48,6 +52,18 @@ function App() {
               <Usuarios />
             </Route>
           </>
+        ) : user?.email && user?.estado === 'Autorizado' && user?.rol === 'Usuario' ? (
+          <>
+            <Route path='/' exact>
+              <Productos user={user} />
+            </Route>
+
+            <Route path='/productos'>
+              <Productos user={user} />
+            </Route>
+          </>
+        ) : user?.email && user?.estado !== 'Autorizado' ? (
+          <NoAutorizado />
         ) : (
           <LogIn setUser={setUser} />
         )}

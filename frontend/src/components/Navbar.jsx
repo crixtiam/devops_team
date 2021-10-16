@@ -4,6 +4,7 @@ import { GoogleLogout } from 'react-google-login';
 const Navbar = ({ user, setUser }) => {
   const logout = () => {
     setUser({});
+    window.location.replace('/');
   };
 
   return (
@@ -18,21 +19,23 @@ const Navbar = ({ user, setUser }) => {
             Sales COL
           </Link>
 
-          {user?.email && (
-            <>
-              <Link className='nav-item nav-link' to='/listarventas'>
-                Ventas
-              </Link>
+          {user?.email &&
+            ['Administrador', 'Vendedor'].indexOf(user.rol) > -1 &&
+            user?.estado === 'Autorizado' && (
+              <>
+                <Link className='nav-item nav-link' to='/listarventas'>
+                  Ventas
+                </Link>
 
-              <Link className='nav-item nav-link' to='/productos'>
-                Productos
-              </Link>
+                <Link className='nav-item nav-link' to='/productos'>
+                  Productos
+                </Link>
 
-              <Link className='nav-item nav-link' to='/usuarios'>
-                Usuarios
-              </Link>
-            </>
-          )}
+                <Link className='nav-item nav-link' to='/usuarios'>
+                  Usuarios
+                </Link>
+              </>
+            )}
         </div>
         {user?.email && (
           <div>

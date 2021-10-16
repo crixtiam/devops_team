@@ -32,7 +32,9 @@ const ListarVentas = () => {
 
   return (
     <div className='container mt-4'>
-      <h3>Interfaz Maestro de Ventas</h3>
+      <div className='d-flex justify-content-center'>
+        <h3 className='subtitle'>Ventas</h3>
+      </div>
       <br />
       <div className='d-flex justify-content-center'>
         <label htmlFor='search'>Buscar Ventas: </label>
@@ -56,7 +58,6 @@ const ListarVentas = () => {
         <table className='mt-4'>
           <thead>
             <tr>
-              <th>ID</th>
               <th>Valor Total</th>
               <th>Fecha Venta</th>
               <th>ID Cliente</th>
@@ -70,7 +71,6 @@ const ListarVentas = () => {
                 if (searchTerm === '') {
                   return venta;
                 } else if (
-                  venta._id.toString().indexOf(searchTerm) > -1 ||
                   venta.valorTotal.toString().indexOf(searchTerm) > -1 ||
                   venta.fecha.toString().indexOf(searchTerm) > -1 ||
                   venta.idCliente.toString().indexOf(searchTerm) > -1 ||
@@ -83,7 +83,6 @@ const ListarVentas = () => {
               })
               .map((venta) => (
                 <tr key={venta._id}>
-                  <td>{venta._id}</td>
                   <td>{venta.valorTotal && formatoMoneda(venta.valorTotal)}</td>
                   <td>{venta.fecha}</td>
                   <td>{venta.idCliente}</td>

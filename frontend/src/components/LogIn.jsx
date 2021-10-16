@@ -1,11 +1,22 @@
-import { useState } from 'react';
+import axios from 'axios';
 import { GoogleLogin } from 'react-google-login';
 
 const LogIn = ({ setUser }) => {
-  const responseGoogle = (response) => {
-    setUser(response.profileObj);
+  const responseGoogle = async (response) => {
+    await axios
+      .post('http://localhost:3001/usuarios', {
+        nombre: response.profileObj.name,
+        email: response.profileObj.email,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+    await axios
+      .get(`http://localhost:3001/usuarios/${response.profileObj.email}`)
+      .then((res) =>
+        setUser({ ...response.profileObj, rol: res.data[0].rol, estado: res.data[0].estado })
+      )
+      .catch((err) => console.log(err));
   };
-
   return (
     <div style={{ margin: 'auto', width: '25%', marginTop: '100px' }}>
       <p>Por favor haga Login para acceder a la aplicación</p>
