@@ -1,16 +1,15 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Usuarios = () => {
-<<<<<<< HEAD
-  document.title = 'Usuarios';
+  document.title = "Usuarios";
 
   const [usuarios, setUsuarios] = useState([]);
 
   useEffect(() => {
     const getUsuarios = () => {
       axios
-        .get('http://localhost:3001/usuarios')
+        .get("http://localhost:3001/usuarios")
         .then((res) => setUsuarios(res.data))
         .catch((err) => console.log(err));
     };
@@ -24,7 +23,7 @@ const Usuarios = () => {
     usuarios[index] = { ...usuario };
     setUsuarios([...usuarios]);
     await axios
-      .post('http://localhost:3001/usuarios', usuario)
+      .post("http://localhost:3001/usuarios", usuario)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -36,94 +35,63 @@ const Usuarios = () => {
     usuarios[index] = { ...usuario };
     setUsuarios([...usuarios]);
     await axios
-      .post('http://localhost:3001/usuarios', usuario)
+      .post("http://localhost:3001/usuarios", usuario)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
 
   return (
-    <div className='container mt-4'>
-      <div className='d-flex justify-content-center'>
-        <h3 className='subtitle'>Usuarios</h3>
-      </div>
-      <div className='d-flex justify-content-center'>
-        <table className='mt-4'>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Email</th>
-=======
-  document.title = "Usuarios";
-
-  return (
     <div className="container mt-4">
-      <h3>Interfaz de Usuario del Maestro de Ususarios</h3>
+      <div className="d-flex justify-content-center">
+        <h3 className="subtitle">Usuarios</h3>
+      </div>
       <div className="d-flex justify-content-center">
         <table className="mt-4">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Usuario</th>
->>>>>>> Juan-Hincapie
+              <th>Nombre</th>
+              <th>Email</th>
               <th>Actualizar rol</th>
               <th>Estado</th>
             </tr>
           </thead>
           <tbody>
-<<<<<<< HEAD
             {usuarios.map((usuario) => (
               <tr key={usuario._id}>
                 <td>{usuario.nombre}</td>
                 <td>{usuario.email}</td>
                 <td>
                   <select
-                    name='rol'
-                    id='rol'
+                    name="rol"
+                    id="rol"
                     value={usuario.rol}
-                    onChange={(e) => handleRolChange(usuario._id, e.target.value)}
+                    onChange={(e) =>
+                      handleRolChange(usuario._id, e.target.value)
+                    }
                   >
-                    <option value=''></option>
-                    <option value='Administrador'>Administrador</option>
-                    <option value='Vendedor'>Vendedor</option>
-                    <option value='Usuario'>Usuario</option>
+                    <option value=""></option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Vendedor">Vendedor</option>
+                    <option value="Usuario">Usuario</option>
                   </select>
                 </td>
                 <td>
                   <select
-                    name='estado'
-                    id='estado'
+                    name="estado"
+                    id="estado"
                     value={usuario.estado}
-                    onChange={(e) => handleEstadoChange(usuario._id, e.target.value)}
+                    onChange={(e) =>
+                      handleEstadoChange(usuario._id, e.target.value)
+                    }
                   >
-                    <option value=''></option>
-                    <option value='Pendiente'>Pendiente</option>
-                    <option value='Autorizado'>Autorizado</option>
-                    <option value='No Autorizado'>No Autorizado</option>
+                    <option value=""></option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Autorizado">Autorizado</option>
+                    <option value="No Autorizado">No Autorizado</option>
                   </select>
                 </td>
               </tr>
             ))}
-=======
-            <tr>
-              <td>1</td>
-              <td>Juan David</td>
-              <td>
-                <select name="rol" id="rol">
-                  <option value=""></option>
-                  <option value="Administrador">Administrador</option>
-                  <option value="Vendedor">Vendedor</option>
-                </select>
-              </td>
-              <td>
-                <select name="estado" id="estado">
-                  <option value=""></option>
-                  <option value="Pendiente">Pendiente</option>
-                  <option value="Autorizado">Autorizado</option>
-                  <option value="No Autorizado">No Autorizado</option>
-                </select>
-              </td>
-            </tr>
->>>>>>> Juan-Hincapie
           </tbody>
         </table>
       </div>
