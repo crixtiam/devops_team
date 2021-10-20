@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { User } from '@auth0/auth0-spa-js';
 
 const Productos = ({ user }) => {
   document.title = 'Productos';
