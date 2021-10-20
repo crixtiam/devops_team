@@ -1,39 +1,60 @@
 import { Link } from 'react-router-dom';
+import { GoogleLogout } from 'react-google-login';
 
-const Navbar = () => {
+const Navbar = ({ user, setUser }) => {
+  const logout = () => {
+    setUser({});
+    window.location.replace('/');
+  };
+
   return (
     <>
-      <nav className='navbar navbar-expand-lg navbar-light bg-light'>
-        <Link to='/'>
-          <img src='/tag.png' alt='Logo' height='40' className='me-3 ms-3 mt-1 mb-1' />
-        </Link>
-        <Link className='navbar-brand' to='/'>
-          Sales COL
-        </Link>
-        <button
-          className='navbar-toggler'
-          type='button'
-          data-toggle='collapse'
-          data-target='#navbarNavAltMarkup'
-          aria-controls='navbarNavAltMarkup'
-          aria-expanded='false'
-          aria-label='Toggle navigation'
-        >
-          <span className='navbar-toggler-icon'></span>
-        </button>
-        <div className='collapse navbar-collapse' id='navbarNavAltMarkup'>
-          <div className='navbar-nav'>
-            <Link className='nav-item nav-link' to='/listarventas'>
-              Ventas
-            </Link>
-            <Link className='nav-item nav-link' to='/productos'>
-              Productos
-            </Link>
-            <Link className='nav-item nav-link' to='/usuarios'>
-              Usuarios
-            </Link>
-          </div>
+      <nav className='navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between'>
+        <div className='navbar-nav'>
+          <Link to='/'>
+            <img src='/tag.png' alt='Logo' height='40' className='me-3 ms-3 mt-1 mb-1' />
+          </Link>
+
+          <Link className='navbar-brand' to='/'>
+            Sales COL
+          </Link>
+
+          {user?.email &&
+            ['Administrador', 'Vendedor'].indexOf(user.rol) > -1 &&
+            user?.estado === 'Autorizado' && (
+              <>
+                <Link className='nav-item nav-link' to='/listarventas'>
+                  Ventas
+                </Link>
+
+                <Link className='nav-item nav-link' to='/productos'>
+                  Productos
+                </Link>
+
+                <Link className='nav-item nav-link' to='/usuarios'>
+                  Usuarios
+                </Link>
+              </>
+            )}
         </div>
+        {user?.email && (
+          <div>
+            <img
+              src={user.imageUrl}
+              alt='Profile Pic'
+              height='45px'
+              style={{ marginRight: '15px' }}
+            />
+            <span style={{ marginRight: '15px' }}>{user.name}</span>
+            <span style={{ marginRight: '15px' }}>
+              <GoogleLogout
+                clientId='1033523848815-sq6ukknhlfk22kh6osn1nbrt28krj8o2.apps.googleusercontent.com'
+                buttonText='Logout'
+                onLogoutSuccess={logout}
+              ></GoogleLogout>
+            </span>
+          </div>
+        )}
       </nav>
     </>
   );
