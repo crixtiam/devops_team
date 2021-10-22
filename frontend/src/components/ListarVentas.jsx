@@ -1,11 +1,40 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const ListarVentas = () => {
   document.title = 'Ventas';
 
+  const [ventas, setVentas] = useState([]);
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    const getVentas = async () => {
+      const res = await axios.get('http://localhost:3001/ventas');
+      setVentas(res.data);
+    };
+    getVentas();
+  }, []);
+
+  const deleteVenta = async (_id) => {
+    const res = window.confirm('Está seguro de eliminar esta venta?');
+    if (res === true) {
+      await axios.delete(`http://localhost:3001/ventas/${_id}`);
+      setVentas(ventas.filter((venta) => venta._id !== _id));
+    }
+  };
+
+  // Dar formato al valor con $ al principio y separado por .
+  function formatoMoneda(num) {
+    return '$' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+  }
+
   return (
     <div className='container mt-4'>
-      <h3>Interfaz Maestro de Ventas</h3>
+      <div className='d-flex justify-content-center'>
+        <h3 className='subtitle'>Ventas</h3>
+      </div>
       <br />
       <div className='d-flex justify-content-center'>
         <label htmlFor='search'>Buscar Ventas: </label>
@@ -14,10 +43,13 @@ const ListarVentas = () => {
           name='search'
           id='search'
           style={{ width: '500px' }}
-          placeholder='Buscar por ID Venta, ID Cliente, o Nombre Cliente'
+          placeholder='Buscar por cualquiera de los parámetros...'
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
         />
         <Link to='/nuevaventa'>
-          <button>Nueva Venta</button>
+          <button style={{ marginLeft: '20px' }}>Nueva Venta</button>
         </Link>
       </div>
       <br />
@@ -26,7 +58,6 @@ const ListarVentas = () => {
         <table className='mt-4'>
           <thead>
             <tr>
-              <th>ID</th>
               <th>Valor Total</th>
               <th>Fecha Venta</th>
               <th>ID Cliente</th>
@@ -35,25 +66,52 @@ const ListarVentas = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>$532.495</td>
-              <td>2021-09-01</td>
-              <td>1025896471</td>
-              <td>Felipe Camargo</td>
-              <td>Diego Valencia</td>
-              <td>
-                <Link to='/venta/1'>
-                  <img
-                    src='/edit.svg'
-                    width='21'
-                    alt='Edit'
-                    style={{ cursor: 'pointer', marginRight: '10px' }}
-                  />
-                </Link>
-                {/* <img src='/trash-alt.svg' alt='Delete' width='15' style={{ cursor: 'pointer' }} /> */}
-              </td>
-            </tr>
+            {ventas
+              .filter((venta) => {
+                if (searchTerm === '') {
+                  return venta;
+                } else if (
+                  venta.valorTotal.toString().indexOf(searchTerm) > -1 ||
+                  venta.fecha.toString().indexOf(searchTerm) > -1 ||
+                  venta.idCliente.toString().indexOf(searchTerm) > -1 ||
+                  venta.nombreCliente.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  venta.encargado.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return venta;
+                }
+                return false;
+              })
+              .map((venta) => (
+                <tr key={venta._id}>
+                  <td>{venta.valorTotal && formatoMoneda(venta.valorTotal)}</td>
+                  <td>{venta.fecha}</td>
+                  <td>{venta.idCliente}</td>
+                  <td>{venta.nombreCliente}</td>
+                  <td>{venta.encargado}</td>
+                  <td>
+                    <Link
+                      to={{
+                        pathname: `/venta/${venta._id}`,
+                        state: { venta: venta },
+                      }}
+                    >
+                      <img
+                        src='/edit.svg'
+                        width='21'
+                        alt='Edit'
+                        style={{ cursor: 'pointer', marginRight: '10px' }}
+                      />
+                    </Link>
+                    <img
+                      src='/trash-alt.svg'
+                      alt='Delete'
+                      width='15'
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => deleteVenta(venta._id)}
+                    />
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

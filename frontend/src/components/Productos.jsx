@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const Productos = () => {
+const Productos = ({ user }) => {
   document.title = 'Productos';
 
   // Dar formato al valor con $ al principio y separado por .
@@ -47,101 +47,125 @@ const Productos = () => {
 
   return (
     <div className='container mt-4'>
-      <h3>Módulo Administrador de Productos</h3>
       <div className='d-flex justify-content-center'>
-        <form className='mt-4' onSubmit={addProducto}>
-          <label htmlFor='descripcion' style={{ marginLeft: '15px' }}>
-            Descripción:{' '}
-          </label>
-          <input
-            type='text'
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
-            required
-          />
-          <label htmlFor='valor' style={{ marginLeft: '15px' }}>
-            Valor Unitario:{' '}
-          </label>
-          <input
-            type='number'
-            style={{ width: '90px' }}
-            value={valorUnitario}
-            onChange={(e) => setValorUnitario(e.target.value)}
-            required
-          />
-          <label htmlFor='estado' style={{ marginLeft: '15px' }}>
-            Estado:{' '}
-          </label>
-          <select
-            name='estado'
-            id='estado'
-            value={estado}
-            onChange={(e) => setEstado(e.target.value)}
-            required
-          >
-            <option value=''></option>
-            <option value='Disponible'>Disponible</option>
-            <option value='No Disponible'>No Disponible</option>
-          </select>
-          <br />
-          <br />
-          <div className='d-flex justify-content-center'>
-            <input type='submit' value='Agregar' />
-          </div>
-        </form>
+        <h3 className='subtitle'>Productos</h3>
       </div>
-      <hr />
+      {user?.email &&
+        ['Administrador', 'Vendedor'].indexOf(user.rol) > -1 &&
+        user?.estado === 'Autorizado' && (
+          <>
+            <div className='d-flex justify-content-center'>
+              <form className='mt-4' onSubmit={addProducto}>
+                <label htmlFor='descripcion' style={{ marginLeft: '15px' }}>
+                  Descripción:{' '}
+                </label>
+                <input
+                  type='text'
+                  value={descripcion}
+                  onChange={(e) => setDescripcion(e.target.value)}
+                  required
+                />
+                <label htmlFor='valor' style={{ marginLeft: '15px' }}>
+                  Valor Unitario:{' '}
+                </label>
+                <input
+                  type='number'
+                  style={{ width: '90px' }}
+                  value={valorUnitario}
+                  onChange={(e) => setValorUnitario(e.target.value)}
+                  required
+                />
+                <label htmlFor='estado' style={{ marginLeft: '15px' }}>
+                  Estado:{' '}
+                </label>
+                <select
+                  name='estado'
+                  id='estado'
+                  value={estado}
+                  onChange={(e) => setEstado(e.target.value)}
+                  required
+                >
+                  <option value=''></option>
+                  <option value='Disponible'>Disponible</option>
+                  <option value='No Disponible'>No Disponible</option>
+                </select>
+                <br />
+                <br />
+                <div className='d-flex justify-content-center'>
+                  <input type='submit' value='Agregar' />
+                </div>
+              </form>
+            </div>
+            <br />
+            <hr />
+          </>
+        )}
       <div className='d-flex justify-content-center'>
         <table className='mt-4'>
           <thead>
             <tr>
-              <th>ID</th>
               <th>Descripción</th>
               <th>Valor Unitario</th>
               <th>Estado</th>
-              <th>Opciones</th>
+              {user?.email &&
+                ['Administrador', 'Vendedor'].indexOf(user.rol) > -1 &&
+                user?.estado === 'Autorizado' && <th>Opciones</th>}
             </tr>
           </thead>
           <tbody>
             {productos.map((producto) => (
               <tr key={producto._id}>
-                <td style={{ paddingRight: '40px' }}>{producto._id}</td>
                 <td>{producto.descripcion}</td>
                 <td>{formatoMoneda(producto.valorUnitario)}</td>
                 <td>{producto.estado}</td>
-                <td>
-                  <Link
-                    to={{
-                      pathname: `/producto/${producto._id}`,
-                      state: {
-                        _id: producto._id,
-                        descripcion: producto.descripcion,
-                        valorUnitario: producto.valorUnitario,
-                        estado: producto.estado,
-                      },
-                    }}
-                  >
-                    <img
-                      src='/edit.svg'
-                      width='21'
-                      className='ss-record-icon'
-                      alt='Edit'
-                      style={{ cursor: 'pointer', marginRight: '10px' }}
-                    />
-                  </Link>
-                  <img
-                    src='/trash-alt.svg'
-                    alt='Delete'
-                    width='15'
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => deleteProducto(producto._id)}
-                  />
-                </td>
+                {user?.email &&
+                  ['Administrador', 'Vendedor'].indexOf(user.rol) > -1 &&
+                  user?.estado === 'Autorizado' && (
+                    <td>
+                      <Link
+                        to={{
+                          pathname: `/producto/${producto._id}`,
+                          state: {
+                            _id: producto._id,
+                            descripcion: producto.descripcion,
+                            valorUnitario: producto.valorUnitario,
+                            estado: producto.estado,
+                          },
+                        }}
+                      >
+                        <img
+                          src='/edit.svg'
+                          width='21'
+                          className='ss-record-icon'
+                          alt='Edit'
+                          style={{ cursor: 'pointer', marginRight: '10px' }}
+                        />
+                      </Link>
+                      <img
+                        src='/trash-alt.svg'
+                        alt='Delete'
+                        width='15'
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => deleteProducto(producto._id)}
+                      />
+                    </td>
+                  )}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      {user?.email && user?.rol === 'Usuario' && user?.estado === 'Autorizado' && (
+        <>
+          <br />
+          <div
+            className='d-flex justify-content-center subtitle'
+            style={{ textDecoration: 'underline' }}
+          >
+            Señor usuario, contacte a un representante de ventas para hacer su pedido
+          </div>
+        </>
+      )}
     </div>
   );
 };
