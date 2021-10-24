@@ -9,7 +9,7 @@ const Usuarios = () => {
   useEffect(() => {
     const getUsuarios = () => {
       axios
-        .get("http://localhost:3001/usuarios")
+        .get("https://devops-api-dccj.herokuapp.com/usuarios")
         .then((res) => setUsuarios(res.data))
         .catch((err) => console.log(err));
     };
@@ -23,7 +23,7 @@ const Usuarios = () => {
     usuarios[index] = { ...usuario };
     setUsuarios([...usuarios]);
     await axios
-      .post("http://localhost:3001/usuarios", usuario)
+      .post("https://devops-api-dccj.herokuapp.com/usuarios", usuario)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -35,7 +35,7 @@ const Usuarios = () => {
     usuarios[index] = { ...usuario };
     setUsuarios([...usuarios]);
     await axios
-      .post("http://localhost:3001/usuarios", usuario)
+      .post("https://devops-api-dccj.herokuapp.com/usuarios", usuario)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
