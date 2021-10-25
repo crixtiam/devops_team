@@ -8,6 +8,9 @@ const NoAutorizado = () => {
         NO AUTORIZADO
       </div>
       <div className='d-flex justify-content-center'>
+        <div>
+          <img src="frontend/public/denied.jpg"/>
+        </div>
         Por favor contacte al Administrador para que autorice su cuenta.
       </div>
     </div>
